@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S4.API</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <div class="container pt-3 pb-5">
@@ -19,22 +22,40 @@
     <main>
         <div class="card container">
             <div class="row pt-4 pb-5">
-                <h2>Ready to laugh?</h2>
+                <h1>Ready to laugh?</h1>
             </div>
-            <div class="card-joke d-flex flex-row justify-content-center pt-3 pb-3">
+            <div class="card-joke d-flex flex-row justify-content-center pt-4 pb-4">
                 <p>fjaklsfjkalsfjklasd</p>
             </div>
+            <div class="row pt-5">
+                <p>Rate the joke:</p>
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <form id="jokeForm">
+                    <input type="radio" class="btn-check" id="btn-emoji1" name="emoji" value="1" autocomplete="off">
+                    <label class="btn btn-emoji px-1 py-1 mx-3" for="btn-emoji1">🤮</label>
+
+                    <input type="radio" class="btn-check" id="btn-emoji2" name="emoji" value="2" autocomplete="off">
+                    <label class="btn btn-emoji px-1 py-1 mx-3" for="btn-emoji2">😑</label>
+
+                    <input type="radio" class="btn-check" id="btn-emoji3" name="emoji" value="3" autocomplete="off">
+                    <label class="btn btn-emoji px-1 py-1 mx-3" for="btn-emoji3">🤣</label>
+                </form>
+            </div>
             <div class="d-flex flex-row justify-content-center pt-5 pb-4">
-                <button class="btn btn-light px-4 py-2 shadow">Next joke</button>
+                <button class="btn btn-warning px-4 py-2 shadow" id="nextJokeBtn">Next joke</button>
             </div>
         </div>
     </main>
-    
+
     <footer>
 
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
+
 </html>
