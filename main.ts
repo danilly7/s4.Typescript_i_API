@@ -1,6 +1,13 @@
-const button = document.querySelector('#nextJokeBtn') as HTMLButtonElement | null;
+const nextJokeBtn = document.querySelector('#nextJokeBtn') as HTMLButtonElement | null;
 const jokeContainer = document.querySelector('.card-joke') as HTMLElement | null;
 const weatherContainer = document.querySelector('.weather-info') as HTMLElement | null;
+
+const apiUrls = [
+    "https://icanhazdadjoke.com/",
+    "https://api.chucknorris.io/jokes/random"
+]
+
+let currentApi = 0;
 
 const options = {
     headers: {
@@ -14,50 +21,79 @@ const reportAcudits: {
     date: string;
 }[] = [];
 
-if (button) {
-    button.addEventListener('click', newJoke);
+if (nextJokeBtn) {
+    nextJokeBtn.addEventListener('click', newJoke);
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------
 
 function cleanEmojis() {
     const emojis = document.querySelectorAll('input[name="emoji"]') as NodeListOf<HTMLInputElement>;
     emojis.forEach(emoji => emoji.checked = false);
 }
 
-function pushReport(joke: string){
+function pushReport(joke: string) {
     const selectedEmoji = document.querySelector('input[name="emoji"]:checked') as HTMLInputElement;
     const score = selectedEmoji ? parseInt(selectedEmoji.value) : 0;
-    
+
     const newReport = {
         joke: joke,
         score: score,
-        date: new Date().toISOString()  
+        date: new Date().toISOString()
     };
-    
+
     reportAcudits.push(newReport);
     console.log("Report acudit:", reportAcudits);
 }
 
+function fetchJoke(apiUrl: string) {
+    return fetch(apiUrl, options)
+        .then((res) => res.json())
+        .then((data) => {
+            if (apiUrl.includes("icanhazdadjoke")) {
+                return data.joke;
+            } else if (apiUrl.includes("chucknorris")) {
+                return data.value;
+            }
+            return '';
+        })
+        .catch((error) => {
+            console.error('Error fetching joke:', error);
+            return '';
+        });
+}
+
+function updateJokeContainer(joke: string) {
+    if (jokeContainer) {
+        jokeContainer.innerText = joke;
+    }
+}
+
 function newJoke() {
-    fetch("https://icanhazdadjoke.com/", options)
-    .then((res) => res.json())
-    .then((data) => {
-        if (jokeContainer) {
-            jokeContainer.innerText = data.joke;
-            pushReport(data.joke)
-            cleanEmojis();
-        }
-    })
-    .catch((error) => {
-        console.error('Error: sorry no more jokes', error);
-    });
+    if (jokeContainer?.innerText) {
+        pushReport(jokeContainer.innerText);
+    }
+
+    cleanEmojis();
+
+    const apiUrl = apiUrls[currentApi];
+    fetchJoke(apiUrl)
+        .then((joke) => {
+            if (joke) {
+                updateJokeContainer(joke);
+            }
+            currentApi = (currentApi + 1) % apiUrls.length;
+        });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     newJoke();
 });
 
-function weatherEmoji(weatherCode:number){
-    switch(weatherCode){
+//----------------------------------------------------------------------------------------------------------------------------------
+
+function weatherEmoji(weatherCode: number) {
+    switch (weatherCode) {
         case 0: return "☀";
         case 1: return "🌤";
         case 2: return "🌤☁";
@@ -102,7 +138,7 @@ function getWeather() {
                 const weatherCode = currentWeather.weathercode;
 
                 const emoji = weatherEmoji(weatherCode);
-                   
+
                 weatherContainer.innerHTML = `
                     <b>Weather in Barcelona</b>
                     <p>${emoji} ${temperature} °C</p>
@@ -113,4 +149,3 @@ function getWeather() {
 }
 
 getWeather();
-

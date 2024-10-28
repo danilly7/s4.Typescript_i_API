@@ -1,16 +1,22 @@
 "use strict";
-const button = document.querySelector('#nextJokeBtn');
+const nextJokeBtn = document.querySelector('#nextJokeBtn');
 const jokeContainer = document.querySelector('.card-joke');
 const weatherContainer = document.querySelector('.weather-info');
+const apiUrls = [
+    "https://icanhazdadjoke.com/",
+    "https://api.chucknorris.io/jokes/random"
+];
+let currentApi = 0;
 const options = {
     headers: {
         'Accept': 'application/json'
     }
 };
 const reportAcudits = [];
-if (button) {
-    button.addEventListener('click', newJoke);
+if (nextJokeBtn) {
+    nextJokeBtn.addEventListener('click', newJoke);
 }
+//----------------------------------------------------------------------------------------------------------------------------------
 function cleanEmojis() {
     const emojis = document.querySelectorAll('input[name="emoji"]');
     emojis.forEach(emoji => emoji.checked = false);
@@ -26,23 +32,46 @@ function pushReport(joke) {
     reportAcudits.push(newReport);
     console.log("Report acudit:", reportAcudits);
 }
-function newJoke() {
-    fetch("https://icanhazdadjoke.com/", options)
+function fetchJoke(apiUrl) {
+    return fetch(apiUrl, options)
         .then((res) => res.json())
         .then((data) => {
-        if (jokeContainer) {
-            jokeContainer.innerText = data.joke;
-            pushReport(data.joke);
-            cleanEmojis();
+        if (apiUrl.includes("icanhazdadjoke")) {
+            return data.joke;
         }
+        else if (apiUrl.includes("chucknorris")) {
+            return data.value;
+        }
+        return '';
     })
         .catch((error) => {
-        console.error('Error: sorry no more jokes', error);
+        console.error('Error fetching joke:', error);
+        return '';
+    });
+}
+function updateJokeContainer(joke) {
+    if (jokeContainer) {
+        jokeContainer.innerText = joke;
+    }
+}
+function newJoke() {
+    if (jokeContainer === null || jokeContainer === void 0 ? void 0 : jokeContainer.innerText) {
+        pushReport(jokeContainer.innerText);
+    }
+    cleanEmojis();
+    const apiUrl = apiUrls[currentApi];
+    fetchJoke(apiUrl)
+        .then((joke) => {
+        if (joke) {
+            updateJokeContainer(joke);
+        }
+        currentApi = (currentApi + 1) % apiUrls.length;
     });
 }
 document.addEventListener('DOMContentLoaded', () => {
     newJoke();
 });
+//----------------------------------------------------------------------------------------------------------------------------------
 function weatherEmoji(weatherCode) {
     switch (weatherCode) {
         case 0: return "☀";
