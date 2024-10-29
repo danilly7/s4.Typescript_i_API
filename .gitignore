@@ -4,4 +4,3 @@ node_modules/
 .editorconfig
 package-lock.json
 .prettierrc.js
-background/
