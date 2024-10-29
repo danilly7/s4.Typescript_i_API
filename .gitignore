@@ -2,3 +2,5 @@ node_modules/
 *.map
 .env
 .editorconfig
+package-lock.json
+.prettierrc.json

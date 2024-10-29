@@ -29,8 +29,6 @@ if (nextJokeBtn) {
     nextJokeBtn.addEventListener('click', newJoke);
 }
 
-//----------------------------------------------------------------------------------------------------------------------------------
-
 function cleanEmojis() {
     const emojis = document.querySelectorAll('input[name="emoji"]') as NodeListOf<HTMLInputElement>;
     emojis.forEach(emoji => emoji.checked = false);
@@ -99,8 +97,6 @@ function newJoke() {
 document.addEventListener('DOMContentLoaded', () => {
     newJoke();
 });
-
-//----------------------------------------------------------------------------------------------------------------------------------
 
 function weatherEmoji(weatherCode: number) {
     switch (weatherCode) {
