@@ -3,6 +3,11 @@
 
 Este proyecto es una aplicación web para una empresa de coaching que muestra chistes aleatorios y permite a los usuarios calificarlos. Además, incluye información meteorológica en tiempo real de Barcelona, proporcionada a través de una API de clima. La aplicación cambia dinámicamente el fondo para cada chiste, haciendo la experiencia más visual y amena. Los datos de calificación de los chistes son registrados y almacenados en un array para un posible análisis futuro.
 <br>
+<br>
+
+![image](https://github.com/user-attachments/assets/b2bea366-c046-4814-a27f-26be05e7684c)
+<br>
+<br>
 
 ## Estructura principal del proyecto:
 
