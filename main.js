@@ -2,11 +2,18 @@
 const nextJokeBtn = document.querySelector('#nextJokeBtn');
 const jokeContainer = document.querySelector('.card-joke');
 const weatherContainer = document.querySelector('.weather-info');
+const backgrounds = [
+    '/background/background1.svg',
+    '/background/background2.svg',
+    '/background/background3.svg',
+    '/background/background4.svg'
+];
 const apiUrls = [
     "https://icanhazdadjoke.com/",
     "https://api.chucknorris.io/jokes/random"
 ];
-let currentApi = 0;
+let currentApiIndex = 0;
+let currentBackgroundIndex = 0;
 const options = {
     headers: {
         'Accept': 'application/json'
@@ -20,6 +27,10 @@ if (nextJokeBtn) {
 function cleanEmojis() {
     const emojis = document.querySelectorAll('input[name="emoji"]');
     emojis.forEach(emoji => emoji.checked = false);
+}
+function changeBackground() {
+    document.body.style.backgroundImage = `url('${backgrounds[currentBackgroundIndex]}')`;
+    currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
 }
 function pushReport(joke) {
     const selectedEmoji = document.querySelector('input[name="emoji"]:checked');
@@ -59,13 +70,14 @@ function newJoke() {
         pushReport(jokeContainer.innerText);
     }
     cleanEmojis();
-    const apiUrl = apiUrls[currentApi];
+    const apiUrl = apiUrls[currentApiIndex];
     fetchJoke(apiUrl)
         .then((joke) => {
         if (joke) {
             updateJokeContainer(joke);
+            changeBackground();
         }
-        currentApi = (currentApi + 1) % apiUrls.length;
+        currentApiIndex = (currentApiIndex + 1) % apiUrls.length;
     });
 }
 document.addEventListener('DOMContentLoaded', () => {

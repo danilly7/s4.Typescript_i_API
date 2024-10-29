@@ -1,10 +1,11 @@
 .card {
     display: block;
     text-align: center;
-    width: 50%;
+    width: 55%;
     height: auto;
-    border: 1px solid rgba(255, 208, 0, 0.977);
-    padding: 20px;
+    border: 3px solid rgba(255, 208, 0, 0.977);
+    padding: 50px;
+    background-color: whitesmoke;
 }
 
 .btn-emoji {
@@ -13,6 +14,32 @@
     transition: border-color 0.3s;
 }
 
-.btn-check:checked + .btn-emoji {
+.btn-check:checked+.btn-emoji {
     border-color: rgba(255, 208, 0, 0.977);
+}
+
+.weather-info{
+    padding-top: 10px;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 65%;
+    }
+
+    .weather-info{
+        display: block;
+        text-align: center;
+    }
+}
+
+body {
+    background-image: url('/background/background4.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    transition: background-image 0.5s ease-in-out;
 }
