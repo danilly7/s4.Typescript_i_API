@@ -1,4 +1,4 @@
-# SPRING 4. TYPESCRIPT I API - S4.API
+# SPRINT 4. TYPESCRIPT I API - S4.API
 ## Descripción del proyecto:
 
 Este proyecto es una aplicación web para una empresa de coaching que muestra chistes aleatorios y permite a los usuarios calificarlos. Además, incluye información meteorológica en tiempo real de Barcelona, proporcionada a través de una API de clima. La aplicación cambia dinámicamente el fondo para cada chiste, haciendo la experiencia más visual y amena. Los datos de calificación de los chistes son registrados y almacenados en un array para un posible análisis futuro.
